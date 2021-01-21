@@ -2,15 +2,18 @@ const CoreModel = require('./CoreModel');
 
 class Quiz extends CoreModel {
     
+    // Proprietes
     _name;
     _id_user;
 
+    // Constructeur
     constructor(id, name, id_user) {
         super(id);
         this._name = name
         this._id_user = id_user
     }
 
+    // les Getter
     getName() {
         return this._name;
     }
@@ -19,6 +22,7 @@ class Quiz extends CoreModel {
         return this._id_user;
     }
 
+    // les Setter
     setName(newName) {
         if(typeof newName !== "string") {
             console.log("Le nom doit etre de type string !");
@@ -31,6 +35,7 @@ class Quiz extends CoreModel {
         } else this._id_user = newId_user;
     }
     
+    // Methodes maisons
     toString() {
         console.log(`
             Le quiz dont l'id est ${this.id}

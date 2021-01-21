@@ -1,15 +1,17 @@
 const CoreModel = require('./CoreModel');
 
 class Tag extends CoreModel {
+
+    // propriétes
     _name;
 
+    // Constructeur
     constructor(id, name) {
         super(id);
         this._name = name;
     }
 
     //Getters
-
     getId(){
         return this._id;
     }
@@ -19,7 +21,6 @@ class Tag extends CoreModel {
     }
 
     //Setters
-
     setId(newId) {
         if(typeof newId !== "number") {
             console.log("L'id doit etre un nombre !")
@@ -37,6 +38,7 @@ class Tag extends CoreModel {
         }
     }
 
+    // Methodes maisons
     toString(){
         console.log(`l'id est ${this._id} et le nom est ${this._name}`);
         

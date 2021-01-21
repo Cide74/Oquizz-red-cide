@@ -15,9 +15,9 @@ const newTag = new Tag(1, "astrologie");
 const quizzTest = new Quiz(5, 'bla bla', 'blo blo')
 
 
-// userTest.toString()
-// questionPokemon.toString()
-// level1.toString()
-// newTag.toString()
-// answerTest.toString()
+userTest.toString()
+questionPokemon.toString()
+level1.toString()
+newTag.toString()
+answerTest.toString()
 quizzTest.toString()

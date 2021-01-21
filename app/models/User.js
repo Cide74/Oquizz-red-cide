@@ -20,7 +20,6 @@ class User extends CoreModel {
     }
 
     // Getters
-
     getFirstname() {
         return this._firstname;
     }
