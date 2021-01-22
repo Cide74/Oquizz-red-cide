@@ -1,80 +1,94 @@
-const CoreModel = require('./CoreModel');
+const CoreModel = require('./coreModel');
 
 class Question extends CoreModel {
-    _name;
-    _context;
+    _description;
+    _anecdote;
+    _wiki;
+    _answer_id;
     _quiz_id;
     _level_id;
-    _answer_id;
 
-    constructor(id, name, context, quiz_id, level_id, answer_id) {
-        super(id);
-        this.setName(name);
-        this.setContext(context);
-        this.setQuizId(quiz_id);
-        this.setLevelId(level_id);
-        this.setAnswerId(answer_id);
-    };
-
-    toString(){
-        console.log(`La question a un id de ${this._id}, elle a comme nom ${this._name}, son contexte est ${this._context}. Elle appartient au quiz ayant pour id ${this._quiz_id}, a un niveau ayant pour id ${this._level_id}, et une réponse qui a un id de ${this._answer_id}`);
+    constructor(obj) {
+        super(obj);
+        this.setDescription(obj.description);
+        this.setAnecdote(obj.anecdote);
+        this.setWiki(obj.wiki);
+        this.setAnswerID(obj.answer_id);
+        this.setQuizID(obj.quiz_id);
+        this.setLevelID(obj.level_id);
     }
 
-    getId() {
-        return this._id;
+    getDescription() {
+        return this._description;
     }
 
-    getName() {
-        return this._name;
-    }
-
-    getContexte(){
-        return this._contexte;
-    }
-
-    getQuizId(){
-        return this._quiz_id;
-    }
-
-    getLevelId(){
-        return this._level_id;
-    }
-
-    getAnswerId(){
+    getAnswerID() {
         return this._answer_id;
     }
 
-    setId(newId) {
-        if(typeof(newId) !== "number") console.log('id non valide');
-        else this._id = newId
+    getQuizID() {
+        return this._quiz_id;
     }
 
-    setName(newName) {
-        if(typeof(newName) !== "string") console.log('nom non valide');
-        else this._name = newName
+    getLevelID() {
+        return this._level_id;
     }
 
-    setContext(newContext){
-        if(typeof(newContext) !== "string") console.log('contexte non valide');
-        else this._context = newContext
+    getAnecdote() {
+        return this._anecdote;
     }
 
-    setQuizId(newId){
-        if(typeof(newId) !== "number") console.log('L\'id du quizz est non valide');
-        else this._quiz_id = newId
+    getWiki() {
+        return this._wiki;
     }
 
-    setLevelId(newId){
-        if(typeof(newId) !== "number") console.log('L\'id du niveau est non valide');
-        else this._level_id = newId
+    setDescription(value) {
+        if (typeof value !== 'string') {
+            throw Error('Question._description must be a string.');
+        }
+
+        this._description = value;
     }
 
-    setAnswerId(newId){
-        if(typeof(newId) !== "number") console.log('L\'id de la réponse est non valide');
-        else this._answer_id = newId
+    setAnecdote(value) {
+        if (typeof value !== 'string') {
+            throw Error('Question._anecdote must be a string.');
+        }
+
+        this._anecdote = value;
     }
-    
+
+    setWiki(value) {
+        if (typeof value !== 'string') {
+            throw Error('Question._wiki must be a string.');
+        }
+
+        this._wiki = value;
+    }
+
+    setAnswerID(value) {
+        if (isNaN(parseInt(value, 10))) {
+            throw Error('Question._answer_id must be an integer.');
+        }
+
+        this._answer_id = parseInt(value, 10);
+    }
+
+    setQuizID(value) {
+        if (isNaN(parseInt(value, 10))) {
+            throw Error('Question._quiz_id must be an integer.');
+        }
+
+        this._quiz_id = parseInt(value, 10);
+    }
+
+    setLevelID(value) {
+        if (isNaN(parseInt(value, 10))) {
+            throw Error('Question._level_id must be an integer.');
+        }
+
+        this._level_id = parseInt(value, 10);
+    }
 }
-
 
 module.exports = Question;

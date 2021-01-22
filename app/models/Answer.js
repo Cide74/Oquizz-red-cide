@@ -3,34 +3,40 @@ const CoreModel = require('./CoreModel');
 class Answer extends CoreModel {
 
     // Proprietes
-    _name;
+    _description;
     _question_id;
 
     // Constructeur
-    constructor(id, name, question_id) {
-        super(id);
-        this.setName(name)
-        this.setQuestionId(question_id)
+    constructor(obj) {
+        super(obj);
+        this.setDescription(_description);
+        this.setQuestionId(question_id);
     };
 
     // les Getter
-    getName() {
-        return this._name;
+    getDescription() {
+        return this._description;
     }
 
-    getQuestionId(){
-        return this._question_id
+    getQuestionID() {
+        return this._question_id;
     }
 
     // les Setter
-    setName(newName) {
-        if(typeof(newName) !== "string") console.log('nom non valide');
-        else this._name = newName
+    setDescription(value) {
+        if (typeof value !== 'string') {
+            throw Error('Answer._description must be a string.');
+        }
+
+        this._description = value;
     }
 
-    setQuestionId(newId) {
-        if(typeof(newId) !== "number") console.log('id non valide');
-        else this._question_id = newId
+    setQuestionID(value) {
+        if (isNaN(parseInt(value, 10))) {
+            throw Error('Answer._question_id must be an integer.');
+        }
+
+        this._question_id = value;
     }
 
     // Methodes maisons
@@ -44,3 +50,11 @@ class Answer extends CoreModel {
 }
 
 module.exports = Answer;
+
+// const a = new Answer({
+//     id: "1383",
+//     description: "blablabla",
+//     question_id: "84930",
+// });
+
+// console.log(a);

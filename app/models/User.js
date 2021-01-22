@@ -1,31 +1,25 @@
-const CoreModel = require('./CoreModel');
+const CoreModel = require('./coreModel');
 
 class User extends CoreModel {
-
-    // Proprietes
     _firstname;
     _lastname;
     _email;
     _password;
-    
-    // Constructeur
-    constructor(id, firstname, lastname, email, password) {
 
-        super(id);
-        this.setFirstname(firstname);
-        this.setLastname(lastname);
-        this.setEmail(email);
-        this.setPassword(password);
-
+    constructor(obj) {
+        super(obj);
+        this.setFirstname(obj.firstname);
+        this.setLastname(obj.lastname);
+        this.setEmail(obj.email);
+        this.setPassword(obj.password);
     }
 
-    // Getters
     getFirstname() {
         return this._firstname;
     }
 
-    getName() {
-        return this._name;
+    getLastname() {
+        return this._lastname;
     }
 
     getEmail() {
@@ -36,44 +30,37 @@ class User extends CoreModel {
         return this._password;
     }
 
+    setFirstname(value) {
+        if (typeof value !== 'string') {
+            throw Error('User._firstname must be a string.');
+        }
 
-    // Setters
-    setFirstname(newFirstname) {
-        if(typeof newFirstname !== "string") {
-            console.log("Le nom doit etre de type string !");
-        } else this._firstname = newFirstname;
+        this._firstname = value;
     }
 
-    setLastname(newLastname) {
-        if(typeof newLastname !== "string") {
-            console.log("Le nom doit etre de type string !");
-        } else this._lastname = newLastname;
-    }
-    
-    setEmail(newEmail) {
-        if(typeof newEmail !== "string") {
-            console.log("Le lien Email doit etre de type string !")
-        } else this._email = newEmail;
+    setLastname(value) {
+        if (typeof value !== 'string') {
+            throw Error('User._lastname must be a string.');
+        }
+
+        this._lastname = value;
     }
 
-    setPassword(newPassword) {
-        if(typeof newPassword !== "string") {
-            console.log("Le lien Password doit etre de type string !")
-        } else this._password = newPassword;
+    setEmail(value) {
+        if (typeof value !== 'string') {
+            throw Error('User._email must be a string.');
+        }
+
+        this._email = value;
     }
 
+    setPassword(value) {
+        if (typeof value !== 'string') {
+            throw Error('User._password must be a string.');
+        }
 
-    // Methodes maisons
-    toString() {
-        console.log(`
-            Mon id est ${this.id} 
-            je me nomme  ${this._firstname} 
-            mon nom est ${this._lastname}
-            mon email est ${this._email}
-            mon password est : ${this._password}
-            `);
+        this._password = value;
     }
-
 }
 
 module.exports = User;

@@ -6,29 +6,23 @@ class Level extends CoreModel  {
     _name;
 
     // Constructeur
-    constructor(id, name) {
-        super(id);
-        this.setName(name)
+    constructor(obj) {
+        super(obj);
+        this.setName(_name)
     };
 
     // les Getter
-    getId() {
-        return this._id;
-    }
-
     getName() {
         return this._name;
     }
 
     // les Setter
-    setId(newId) {
-        if(typeof(newId) !== "number") console.log('id non valide');
-        else this._id = newId
-    }
+    setName(value) {
+        if (typeof value !== 'string') {
+            throw Error('Level._name must be a string.');
+        }
 
-    setName(newName) {
-        if(typeof(newName) !== "string") console.log('nom non valide');
-        else this._name = newName
+        this._name = value;
     }
 
     // Méthode maison
@@ -38,3 +32,13 @@ class Level extends CoreModel  {
 }
 
 module.exports = Level;
+
+/*
+ Test
+ const l = new Level({
+     id: 488339,
+     name: "eazy"
+ });
+ 
+ console.log(l);
+ */

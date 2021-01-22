@@ -1,26 +1,48 @@
+// CoreModel est une class qui permet de gérer les fonctionnalités de base
+// de toutes les entités de notre application (leur id)
+
 class CoreModel {
 
     // Proprietes
-    id;
+    _id;
 
     // Constructeur
-    constructor(id) {
-        this.id = id;
+    constructor(obj) {
+        this.setId ( obj.id );
     }
 
     // les Getter
     getId() {
-        return this.id;
+        return this._id;
     }
 
     // les Setter
+    /* correction
     setId(newId) {
         if(typeof newId !== "number") {
             throw Error("L'id doit etre un nombre !")
         } else {
             this.id = newId; 
         }
+    }*/
+
+    // avec double controle 
+    setId(value) {
+        // On verifie que la valeur est bien un nombre
+        if (isNaN(parseInt(value, 10))) {
+            throw Error('CoreModel._id must be an integer.');
+        }
+
+        this._id = value;
     }
+    /*ou
+    setId(value) {
+        if (isNaN(+value)) {
+            throw Error('CoreModel._id must be an integer.');
+        }
+
+        this._id = value;
+    }*/
 
     /* bonus
     set id(value) {
@@ -34,3 +56,12 @@ class CoreModel {
 }
 
 module.exports = CoreModel;
+
+//test
+//new CoreModel({ id: "123" });
+//new CoreModel({ id: 123 });
+
+// const cm = new CoreModel({ id: "273839272833" });
+
+console.log(cm);
+

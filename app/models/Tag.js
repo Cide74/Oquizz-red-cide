@@ -6,43 +6,29 @@ class Tag extends CoreModel {
     _name;
 
     // Constructeur
-    constructor(id, name) {
-        super(id);
-        this._name = name;
+    constructor(obj) {
+        super(obj);
+        this.setName(obj.name);
     }
 
     //Getters
-    getId(){
-        return this._id;
-    }
-
     getName(){
         return this._name;
     }
 
     //Setters
-    setId(newId) {
-        if(typeof newId !== "number") {
-            console.log("L'id doit etre un nombre !")
-        } else {
-            this._id = newId;
+    setName(value) {
+        if (typeof value !== 'string') {
+            throw Error('Tag._name must be a string.');
         }
-    }
- 
-    setName(newName) {
-        if(typeof newName !== "string") {
-            console.log("Le Name doit être une chaîne de caractère");
-            
-        } else {
-            this._name = newName;
-        }
+        this._name = value;
     }
 
     // Methodes maisons
-    toString(){
-        console.log(`l'id est ${this._id} et le nom est ${this._name}`);
-        
-    }
+    //toString(){
+    //    console.log(`l'id est ${this._obj} et le nom est ${this._name}`);
+    //    
+    //}
 
 }   
 

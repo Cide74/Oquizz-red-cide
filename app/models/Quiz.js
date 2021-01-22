@@ -1,48 +1,61 @@
-const CoreModel = require('./CoreModel');
+const CoreModel = require('./coreModel');
 
 class Quiz extends CoreModel {
-    
-    // Proprietes
-    _name;
-    _id_user;
+    _title;
+    _description;
+    _user_id;
 
-    // Constructeur
-    constructor(id, name, id_user) {
-        super(id);
-        this._name = name
-        this._id_user = id_user
-    }
-
-    // les Getter
-    getName() {
-        return this._name;
-    }
-    
-    getId_user() {
-        return this._id_user;
+    constructor(obj) {
+        super(obj);
+        this.setTitle(obj.title);
+        this.setDescription(obj.description);
+        this.setUserID(obj.user_id);
     }
 
-    // les Setter
-    setName(newName) {
-        if(typeof newName !== "string") {
-            console.log("Le nom doit etre de type string !");
-        } else this._name = newName;
+    getTitle() {
+        return this._title;
     }
 
-    setId_user(newId_user) {
-        if(typeof newId_user !== "string") {
-            console.log("Le nom doit etre de type string !");
-        } else this._id_user = newId_user;
+    getDescription() {
+        return this._description;
     }
-    
-    // Methodes maisons
-    toString() {
-        console.log(`
-            Le quiz dont l'id est ${this.id}
-            s'intitule ${this._name} 
-            et l'id de son utilisateur est ${this._id_user}`
-            );        
+
+    getUserID() {
+        return this._user_id;
+    }
+
+    setTitle(value) {
+        if (typeof value !== 'string') {
+            throw Error('Quiz._title must be a string.');
+        }
+
+        this._title = value;
+    }
+
+    setDescription(value) {
+        if (typeof value !== 'string') {
+            throw Error('Quiz._description must be a string.');
+        }
+        
+        this._description = value;
+    }
+
+    setUserID(value) {
+        if (isNaN(parseInt(value, 10))) {
+            throw Error('Quiz._user_id must be an integer.');
+        }
+
+        this._user_id = parseInt(value, 10);
     }
 }
+
+const q = new Quiz({
+    id: 483,
+    title: 'un quiz',
+    description: 'loremi',
+    user_id: 8393,
+});
+
+console.log(q);
 
 module.exports = Quiz;
