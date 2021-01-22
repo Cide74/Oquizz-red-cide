@@ -1,33 +1,17 @@
-const CoreModel = require('./coreModel');
-const database = require('../database'); 
+const database = require('./database'); 
+const Level = require('./models/level');
 
-class Level extends CoreModel {
-    _name;
+const dataMapper = {
 
-    constructor(obj) {
-        super(obj);
-        this.setName(obj.name);
-    }
-
-    getName() {
-        return this._name;
-    }
-
-    setName(value) {
-        if (typeof value !== 'string') {
-            throw Error('Level._name must be a string.');
-        }
-
-        this._name = value;
-    }
-
-    static getAllLevels(callback) {
+    getAllLevels: (callback) => {
         // On envoie une requete async à la db
         database.query('SELECT * FROM level', (error, result) => {
             if (error) {
                 callback(error, null);
             } else {
                 const levels = [];
+
+                console.log(result.rows);
 
                 // result.rows est un array des data de la db donc on peux forEach pour tout convertir en levelData => instance Level
                 // exemple de result.rows:
@@ -46,9 +30,10 @@ class Level extends CoreModel {
                 callback(null, levels);
             }
         });
-    }
+    },
 
-    static getOneLevel(id, callback) {
+
+    getOneLevel: (id, callback) => {
         database.query('SELECT * FROM level WHERE id = $1', [id], (error, result) => {
             if (error) {
                 callback(error, null);
@@ -60,19 +45,7 @@ class Level extends CoreModel {
                 callback(null, new Level(result.rows[0]));
             }
         });
- 
     }
+};
 
-
-    
-    save() {
-        // save l'instance dans la bdd
-        database.query('JE VEUX SAVE MON OBJET')
-    }
-
-
-
-}
-
-
-module.exports = Level;
+module.exports = dataMapper;
