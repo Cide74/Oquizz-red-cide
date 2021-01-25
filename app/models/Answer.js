@@ -1,5 +1,8 @@
 const CoreModel = require('./CoreModel');
 
+// Au sein de la class Answer, on peux considérer que super prend cette valeur:
+// const super = CoreModel;
+
 class Answer extends CoreModel {
 
     // Proprietes

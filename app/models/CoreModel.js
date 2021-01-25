@@ -1,6 +1,9 @@
 // CoreModel est une class qui permet de gérer les fonctionnalités de base
 // de toutes les entités de notre application (leur id)
 
+const os = require('os');
+const database = require("../database");
+
 class CoreModel {
 
     // Proprietes
@@ -12,7 +15,7 @@ class CoreModel {
     constructor(obj) {
 
         // avec le controle par .setId
-        //this.setId ( obj.id );
+        // this.setId ( obj.id );
         // On ne fais pas .setId ici car on veut laisser la possibilité
         // de pouvoir créer une instance SANS id
         this._id = obj.id;
@@ -24,16 +27,6 @@ class CoreModel {
     }
 
     // les Setter
-    /* correction
-    setId(newId) {
-        if(typeof newId !== "number") {
-            throw Error("L'id doit etre un nombre !")
-        } else {
-            this.id = newId; 
-        }
-    }*/
-
-    // avec double controle 
     setId(value) {
         // On verifie que la valeur est bien un nombre
         if (isNaN(parseInt(value, 10))) {
@@ -42,24 +35,6 @@ class CoreModel {
 
         this._id = value;
     }
-
-    /*ou
-    setId(value) {
-        if (isNaN(+value)) {
-            throw Error('CoreModel._id must be an integer.');
-        }
-
-        this._id = value;
-    }*/
-
-    /* bonus
-    set id(value) {
-      if(isNaN(parseInt(value, 10))) {
-        throw Error("CoreModel.id must be a integer !");
-        // on "lève" une erreur => ça arrête tout !
-      }
-      this.id = value;
-    }*/
       
     static findAll(callback) {
         database.query(`SELECT * FROM "${this.table}"`, (err, results) => {
@@ -97,12 +72,11 @@ class CoreModel {
         // pour avoir les valeurs a inserer
         const sqlQueryFields = valuesName.map((str) => '"' + str + '"').join(', ');
         // pour avoir les valeurs a ajouter
-        const sqlQueryValues = valuesName.map((_, index) => '$' + (index + 1)).join(', ';
+        const sqlQueryValues = valuesName.map((_, index) => '$' + (index + 1)).join(', ');
         // pour avoir les valeurs a modifier
-        const values = valuesName.map(valueName => this[valueName])
+        const values = valuesName.map(valueName => this[valueName]);
 
-
-    // pour accedé a l'instence mere on ajoute .constructor entre this.table
+        // pour accedé a l'instence mere on ajoute .constructor entre this.table
         const query = {
             text: `
                 INSERT INTO "${this.constructor.table}"
@@ -112,24 +86,6 @@ class CoreModel {
             `,
             values,
         };
-
-
-        /*
-        const query = {
-            text: `
-                INSERT INTO "user"
-                (${valuesName.map(str => '"' + str + '"').join(', ')})
-                VALUES (${valuesName.map((_, index) => '$' + (index + 1)).join(', ')})
-                RETURNING "id"
-            `,
-            values: [
-                this.getFirstname(),
-                this.getLastname(), 
-                this.getEmail(),
-                this.getPassword()
-            ],
-        };*/
-
 
         database.query(query, (err, results) => {
             if (err) {
@@ -141,10 +97,10 @@ class CoreModel {
                 callback('Insert did not return any id.', this);
             }
         });
-    };
-    }   
+    } 
 
     update(callback) {
+
         const valuesName = Object.keys(this)
             .slice(1)
             .map(str => str.substring(1));
@@ -152,7 +108,7 @@ class CoreModel {
         const sqlQueryValues = valuesName.map((_, index) => '$' + (index + 1)).join(', ');
 
         const sqlQueryValuesList = valuesName.map((valueName, index) => {
-            return `"${valueName}" = $${index + 1}${valuesName.length !== index + 1 ? ',' : ''}${os.EOL}`
+            return `"${valueName}" = $ ${index + 1}${valuesName.length !== index + 1 ? ',' : ''}${os.EOL}`
         }).join('');
         const sqlQueryIdValue = valuesName.length + 1;
 
@@ -198,17 +154,13 @@ class CoreModel {
 
 
 
+  ///  Le findBy s'utilisera comme ça en gros : User.findBy({firstname: 'Sami'}, (err, results) => { })
 
+    //findBy(params)
 
 }
 
 module.exports = CoreModel;
 
-//test
-//new CoreModel({ id: "123" });
-//new CoreModel({ id: 123 });
 
-// const cm = new CoreModel({ id: "273839272833" });
-
-//console.log(cm);
 

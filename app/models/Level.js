@@ -233,7 +233,9 @@ Level.getOneLevel(8, (err, result) => {
 
 
 
-
+const newLevel = new Level({
+    name:'Très difficile'
+});
 
 
 
