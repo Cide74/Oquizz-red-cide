@@ -4,6 +4,8 @@ class Tag extends CoreModel {
 
     // propriétes
     _name;
+    
+    static table = "level";
 
     // Constructeur
     constructor(obj) {

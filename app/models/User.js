@@ -10,6 +10,8 @@ class User extends CoreModel {
     _email;
     _password;
 
+    static table = 'user' ;
+
     constructor(obj) {
         super(obj);
         this.setFirstname(obj.firstname);
@@ -70,6 +72,7 @@ class User extends CoreModel {
 
     // ACTIVE RECORDING METHODS
 
+    /* - dans coreModel maintenant
     static getAllUsers(callback) {
         // On met la table user entre guillemet car sinon il tape dans la table user de la db qui est la table par défaut pour stocker les users de la db
         // Et du coup sans guillemet il tape pas dans notre table "user" à nous
@@ -104,6 +107,7 @@ class User extends CoreModel {
     }
 
     insert(callback) {
+        
         const query = {
             text: `
                 INSERT INTO "user"
@@ -132,6 +136,8 @@ class User extends CoreModel {
             }
         });
         }
+
+       
 
     update(callback) {
         const query = {
@@ -180,29 +186,14 @@ class User extends CoreModel {
                 callback('Delete did not target any rows.', this);
             }
         });
-    }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    }*/
 
 
 }
 
 module.exports = User;
 
-
+/*
 // test en consol
 User.getAllUsers((err, result) => {
     console.log(err, result);
@@ -244,3 +235,18 @@ User.getOneUser(4, (err, hp) => {
         console.log(err2, result);
     });
 });
+
+
+
+// insert avec factorisation
+const user = new User({ 
+    firstname: 'foo',
+    lastname: 'bar',
+    email: 'baz',
+    password: 'qux',
+});
+
+user.insert();
+
+module.exports = User;
+*/

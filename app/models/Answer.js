@@ -6,6 +6,8 @@ class Answer extends CoreModel {
     _description;
     _question_id;
 
+    static table = "level";
+
     // Constructeur
     constructor(obj) {
         super(obj);

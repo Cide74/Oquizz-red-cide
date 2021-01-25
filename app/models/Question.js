@@ -8,6 +8,8 @@ class Question extends CoreModel {
     _quiz_id;
     _level_id;
 
+    static table = "level";
+
     constructor(obj) {
         super(obj);
         this.setDescription(obj.description);

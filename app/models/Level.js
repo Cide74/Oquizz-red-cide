@@ -4,6 +4,8 @@ const database = require('../database');
 class Level extends CoreModel {
     _name;
 
+    static table = "level";
+
     constructor(obj) {
         super(obj);
         this.setName(obj.name);
@@ -20,6 +22,8 @@ class Level extends CoreModel {
 
         this._name = value;
     }
+
+    /*  tout est maintenant dans le coremodel ce qui évite de faire cela pour toutes les class
 
     static getAllLevels(callback) {
         // On envoie une requete async à la db
@@ -62,14 +66,7 @@ class Level extends CoreModel {
         });
  
     }
-
-
-    /*
-    save() {
-        // save l'instance dans la bdd
-        database.query('JE VEUX SAVE MON OBJET')
-    }
-    */
+    
 
     // on insert une donnée ( + 1 nivau supplementaire)
     insert(callback) {
@@ -96,7 +93,7 @@ class Level extends CoreModel {
         } else {
             callback('Insert did not return any id.', this);
         }
-    });*/
+    });
 
 
     // avec else if  
@@ -162,7 +159,7 @@ class Level extends CoreModel {
             }
         });
     }
-
+*/
 
 
 
