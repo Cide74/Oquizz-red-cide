@@ -8,7 +8,12 @@ class CoreModel {
 
     // Constructeur
     constructor(obj) {
-        this.setId ( obj.id );
+
+        // avec le controle par .setId
+        //this.setId ( obj.id );
+        // On ne fais pas .setId ici car on veut laisser la possibilité
+        // de pouvoir créer une instance SANS id
+        this._id = obj.id;
     }
 
     // les Getter
@@ -35,6 +40,7 @@ class CoreModel {
 
         this._id = value;
     }
+
     /*ou
     setId(value) {
         if (isNaN(+value)) {
