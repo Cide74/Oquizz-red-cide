@@ -1,26 +1,13 @@
-const CoreModel = require('./coreModel');
+const Sequelize = require('sequelize');
+const sequelize = require('../sequelize');
 
-class Tag extends CoreModel {
-    _name;
+class Tag extends Sequelize.Model {};
 
-    static table = "tag";
-
-    constructor(obj) {
-        super(obj);
-        this.setName(obj.name);
-    }
-
-    getName() {
-        return this._name;
-    }
-
-    setName(value) {
-        if (typeof value !== 'string') {
-            throw Error('Tag._name must be a string.');
-        }
-
-        this._name = value;
-    }
-}
+Tag.init({
+    name: Sequelize.STRING,
+}, {
+    sequelize,
+    tableName: 'tag',
+});
 
 module.exports = Tag;

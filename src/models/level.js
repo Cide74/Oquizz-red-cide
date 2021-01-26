@@ -1,27 +1,14 @@
-const CoreModel = require('./coreModel');
-const database = require('../database'); 
+const Sequelize = require('sequelize');
+const sequelize = require('../sequelize');
 
-class Level extends CoreModel {
-    _name;
+class Level extends Sequelize.Model {};
 
-    static table = "level";
-
-    constructor(obj) {
-        super(obj);
-        this.setName(obj.name);
-    }
-
-    getName() {
-        return this._name;
-    }
-
-    setName(value) {
-        if (typeof value !== 'string') {
-            throw Error('Level._name must be a string.');
-        }
-
-        this._name = value;
-    }
-}
+// Premier parametre: la liste des valeurs dans le model (sans mettre les ids de relation)
+Level.init({
+    description: Sequelize.STRING,
+}, {
+    sequelize,
+    tableName: 'level',
+});
 
 module.exports = Level;
