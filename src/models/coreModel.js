@@ -52,6 +52,49 @@ class CoreModel {
         });
     }
 
+    static findBy(params, callback) {
+        // on creer un tableau vide. 
+        const values = [];
+
+        // On veut générer les conditions pour notre requete SQL
+        // (on transforme l'objet params en tableau de keys pour pouvoir le parcourir avec .map)
+        const paramsKeys = Object.keys(params);
+
+        //console.log(paramsKeys);
+
+        const sqlQueryConditions = paramsKeys.map((paramKey, index) => {
+            // On profite de la boucle du .map pour générer un deuxième tableau qui contient les valeurs associé au placeholders de la req sql
+            values.push(params[paramKey]);
+            return `"${paramKey}" = $${index + 1}`;
+        });
+        // on ajoute $1 $2 a chaque parametres
+        //console.log(sqlQueryConditions, values);
+
+        // on met where si besoin et and et les ':' = sinon
+        // Ternaire sur paramsKeys pour savoir si on doit compléter la requete SQL pour inclure des filtres
+        // ou si on ne doit rien mettre afin d'avoir un comportement similaire à .findAll
+        const sqlQuery = paramsKeys.length 
+            ? `WHERE ${sqlQueryConditions.join(' AND ')}` 
+            : '';
+
+        const query = {
+            text: `SELECT * FROM "${this.table}" ${sqlQuery}`,
+            values,
+        };
+
+        //console.log(query);
+
+        database.query(query, (err, results) => {
+            if (err) {
+                callback(err, null);
+            } else {
+                const objs = results.rows.map(obj => new this(obj));
+                callback(null, objs);
+            }
+        });
+    }
+
+
     insert(callback) {
         const valuesName = Object.keys(this)
             // slice(1) pour supprimer le '_id' du tableau
@@ -91,8 +134,7 @@ class CoreModel {
             .slice(1)
             .map(str => str.substring(1));
 
-        const sqlQueryValues = valuesName.map((_, index) => '$' + (index + 1)).join(', ');
-
+        
         const sqlQueryValuesList = valuesName.map((valueName, index) => {
             return `"${valueName}" = $${index + 1}${valuesName.length !== index + 1 ? ',' : ''}${os.EOL}`
         }).join('');
@@ -137,6 +179,22 @@ class CoreModel {
             }
         });
     }
+
+
+    save(callback) {
+        // Version minimal:
+        // this[this.getId() ? 'update' : 'insert'](callback);
+        if (this.getId()) {
+            console.log('update');
+            this.update(callback);
+        } else {
+            console.log('insert');
+            this.insert(callback);
+        }
+    }
+
+
+
 }
 
 module.exports = CoreModel;

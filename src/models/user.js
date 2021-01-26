@@ -70,5 +70,32 @@ class User extends CoreModel {
     }
 }
 
+//User.findBy({ firstname: 'Chuck', lastname: 'Norris' }, (err, results) => {
+//    console.log(err, results);
+//});
+//
+//User.findBy({}, (err, results) => {
+//    console.log(err, results);
+//});
+// pour tester node src/models/user.js
+
+
+const hp = new User({
+    firstname: 'Harry',
+    lastname: 'Potter',
+    email: 'harry@hogwarts.io',
+    password: 'hedwige',
+});
+
+hp.save((err, results) => {
+    console.log('after first save', err, results);
+
+    hp.setPassword('serpentard au top');
+
+    hp.save((err, results) => {
+        console.log('after second save', err, results);
+    });
+});
+
 
 module.exports = User;
