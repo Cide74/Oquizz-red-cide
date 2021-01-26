@@ -1,5 +1,5 @@
 --
--- Base de données :  "oquiz"
+-- Base de données :  "quizz"
 --
 
 BEGIN;
